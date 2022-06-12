@@ -13,7 +13,6 @@ router.post('/', [
   usersController.addUser,
 ]);
 router.put('/:id', [
-  usersMiddleware.checkUserInfosInBodyRequest,
   usersMiddleware.checkUserInfosPolicyAtUpdate,
   usersController.updateUser,
 ]);

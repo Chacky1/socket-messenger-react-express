@@ -23,7 +23,7 @@ class UsersController {
 
   async addUser(req, res) {
     try {
-      req.body.password = argon2.hash(req.body.password);
+      req.body.password = await argon2.hash(req.body.password);
       const userId = await usersModel.addUser(req.body);
       res.status(201).send({ ...req.body, id: userId });
     } catch (error) {
@@ -33,7 +33,7 @@ class UsersController {
 
   async updateUser(req, res) {
     try {
-      await usersModel.updateUser(req.params.id, req.body);
+      await usersModel.updateUser(+req.params.id, req.body);
       res.status(204).send();
     } catch (error) {
       res.status(500).send({ message: error.message });
@@ -42,7 +42,7 @@ class UsersController {
 
   async deleteUser(req, res) {
     try {
-      await usersModel.deleteUser(req.params.id);
+      await usersModel.deleteUser(+req.params.id);
       res.status(204).send();
     } catch (error) {
       res.status(500).send({ message: error.message });

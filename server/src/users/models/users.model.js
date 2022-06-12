@@ -22,7 +22,7 @@ class UsersModel extends CommonModel {
   async addUser(newUser) {
     const query = 'INSERT INTO user SET ?';
     const databaseResult = await this.connection.promise().query(query, newUser);
-    return databaseResult.insertId;
+    return databaseResult[0].insertId;
   }
 
   async updateUser(userId, updatedUser) {
@@ -31,7 +31,7 @@ class UsersModel extends CommonModel {
   }
 
   async deleteUser(userId) {
-    const query = 'DELETE user WHERE id = ?';
+    const query = 'DELETE FROM user WHERE id = ?';
     await this.connection.promise().query(query, userId);
   }
 }

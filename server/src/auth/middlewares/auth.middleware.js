@@ -11,8 +11,8 @@ class AuthMiddleware {
     }
   }
 
-  checkEmailExists(req, res, next) {
-    const user = usersModel.getUserByEmail(req.body.email);
+  async checkEmailExists(req, res, next) {
+    const user = await usersModel.getUserByEmail(req.body.email);
     if (user && user.email === req.body.email) {
       next();
     } else {
@@ -21,15 +21,15 @@ class AuthMiddleware {
   }
 
   async checkPasswordValidity(req, res, next) {
-    const user = usersModel.getUserByEmail(req.body.email);
-    if (await argon2.verify(req.body.password, user.password)) {
+    const user = await usersModel.getUserByEmail(req.body.email);
+    if (await argon2.verify(user.password, req.body.password)) {
       next();
     } else {
       res.status(400).send({ message: 'Email or/and Password are invalid.' });
     }
   }
 
-  async checkCookieStillValid(req, res, next) {
+  checkCookieStillValid(req, res, next) {
     if (req.cookies && req.cookies['jwt-token'].maxAge > Date.now()) {
       next();
     } else {
