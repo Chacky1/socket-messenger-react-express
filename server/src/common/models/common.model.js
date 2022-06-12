@@ -10,4 +10,4 @@ class CommonModel {
   });
 }
 
-module.export = CommonModel;
+module.exports = CommonModel;

@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+const argon2 = require('argon2');
 const usersModel = require('../models/users.model');
 
 class UsersController {
@@ -22,6 +23,7 @@ class UsersController {
 
   async addUser(req, res) {
     try {
+      req.body.password = argon2.hash(req.body.password);
       const userId = await usersModel.addUser(req.body);
       res.status(201).send({ ...req.body, id: userId });
     } catch (error) {

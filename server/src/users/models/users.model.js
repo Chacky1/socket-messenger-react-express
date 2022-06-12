@@ -13,6 +13,12 @@ class UsersModel extends CommonModel {
     return databaseResult[0][0];
   }
 
+  async getUserByEmail(email) {
+    const query = 'SELECT * FROM user WHERE email = ?';
+    const databaseResult = await this.connection.promise().query(query, email);
+    return databaseResult[0][0];
+  }
+
   async addUser(newUser) {
     const query = 'INSERT INTO user SET ?';
     const databaseResult = await this.connection.promise().query(query, newUser);
