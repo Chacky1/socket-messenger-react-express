@@ -18,4 +18,12 @@ router.put('/:id', [
 ]);
 router.delete('/:id', usersController.deleteUser);
 
+router.get('/:userId/friends', usersController.listFriends);
+router.post('/:userId/friends', [
+  usersMiddleware.checkNewContactInBodyRequest,
+  usersMiddleware.checkNewContactIsNotAFriend,
+  usersController.addFriend,
+]);
+router.delete('/:userId/friends/:friendId', usersController.deleteFriend);
+
 module.exports = router;

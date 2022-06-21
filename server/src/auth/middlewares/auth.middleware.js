@@ -21,7 +21,7 @@ class AuthMiddleware {
   }
 
   async checkPasswordValidity(req, res, next) {
-    const user = await usersModel.getUserByEmail(req.body.email);
+    const user = await usersModel.getUserByEmailWithCredentials(req.body.email);
     if (await argon2.verify(user.password, req.body.password)) {
       next();
     } else {

@@ -1,0 +1,34 @@
+.contact {
+    border-top: 1px solid #E5E6E8;
+    border-bottom: 1px solid #E5E6E8;
+
+
+    &__pseudo {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: capitalize;
+
+        button {
+            background-color: white;
+            border: 1px solid $main-color;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            transition: all 0.5s ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #e7dbff;
+            }
+        }
+    }
+
+    &:hover {
+        border-left: 3px solid $main-color;
+        background-color: #F9FAFC;
+        cursor: pointer;
+    }
+}
