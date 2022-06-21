@@ -1,9 +1,11 @@
 @import url('sanitize.css');
 @import './settings';
 @import './pages/authentication';
-@import './pages/home';
-@import './components/chat';
+@import './pages/messenger';
+@import './components/mainDashboardMessaging';
 @import './components/contacts';
 @import './components/contact';
-@import './components/messages';
+@import './components/chat';
 @import './components/newMessage';
+@import './components/header';
+@import './components/chatFriendInfo';

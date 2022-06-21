@@ -11,12 +11,19 @@ function Login() {
 
   const { userDispatch } = useContext(UserContext);
 
-  const handleLoginSubmit = async () => {
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/login',
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
       userDispatch({ type: 'login', payload: response.data });
       navigate('/messenger');
     } catch (error) {
@@ -27,7 +34,7 @@ function Login() {
   return (
     <div className="login">
       <h2>Connexion</h2>
-      <form className="login-form" onSubmit={handleLoginSubmit}>
+      <form className="login-form" onSubmit={(event) => handleLoginSubmit(event)}>
         <div className="login-form__group">
           <label htmlFor="email">
             <p>Email</p>

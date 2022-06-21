@@ -5,7 +5,7 @@ const usersModel = require('../models/users.model');
 class UsersController {
   async listUsers(req, res) {
     try {
-      const users = await usersModel.listUsers();
+      const users = await usersModel.listUsers(req.query.pseudoPattern);
       res.status(200).send(users);
     } catch (error) {
       res.status(500).send({ message: error.message });
@@ -43,6 +43,35 @@ class UsersController {
   async deleteUser(req, res) {
     try {
       await usersModel.deleteUser(+req.params.id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  }
+
+  async listFriends(req, res) {
+    try {
+      const users = await usersModel.listUsers();
+      const friendIds = await usersModel.listFriends(+req.params.userId);
+      const friends = users.filter((user) => friendIds.includes(user.id));
+      res.status(200).send(friends);
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  }
+
+  async addFriend(req, res) {
+    try {
+      await usersModel.addFriend(+req.params.userId, req.body.newContactId);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  }
+
+  async deleteFriend(req, res) {
+    try {
+      await usersModel.deleteFriend(+req.params.userId, +req.params.friendId);
       res.status(204).send();
     } catch (error) {
       res.status(500).send({ message: error.message });

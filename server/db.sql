@@ -25,3 +25,10 @@ CREATE TABLE user_room (
     FOREIGN KEY (id_user) REFERENCES user(id),
     FOREIGN KEY (id_room) REFERENCES room(id)
 );
+
+CREATE TABLE friends (
+    id_user INT NOT NULL,
+    id_friend INT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id),
+    FOREIGN KEY (id_friend) REFERENCES user(id)
+);

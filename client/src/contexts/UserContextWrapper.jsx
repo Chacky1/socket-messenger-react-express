@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useReducer, useMemo } from 'react';
+import React, { useState, useReducer, useMemo } from 'react';
 
 import UserContext from './UserContext';
 
@@ -24,8 +24,11 @@ const userReducer = (userState, action) => {
 
 function UserContextWrapper({ children }) {
   const [user, userDispatch] = useReducer(userReducer, initialUser);
+  const [currentFriendTalk, setCurrentFriendTalk] = useState(initialUser);
 
-  const memoizedValue = useMemo(() => ({ user, userDispatch }), [user]);
+  const memoizedValue = useMemo(() => ({
+    user, userDispatch, currentFriendTalk, setCurrentFriendTalk,
+  }), [user, currentFriendTalk]);
 
   return (
     <UserContext.Provider value={memoizedValue}>

@@ -23,7 +23,8 @@ const userInfosReducer = (userInfos, action) => {
 function Signup() {
   const [userInfos, userInfosDispatch] = useReducer(userInfosReducer, initialUserInfos);
 
-  const handleSignupSubmit = async () => {
+  const handleSignupSubmit = async (event) => {
+    event.preventDefault();
     try {
       await axios.post('http://localhost:5000/api/users', userInfos);
     } catch (error) {
@@ -34,7 +35,7 @@ function Signup() {
   return (
     <div className="signup">
       <h2>Inscription</h2>
-      <form className="signup-form" onSubmit={handleSignupSubmit}>
+      <form className="signup-form" onSubmit={(event) => handleSignupSubmit(event)}>
         <div className="signup-form__group">
           <label htmlFor="email">
             <p>Email</p>

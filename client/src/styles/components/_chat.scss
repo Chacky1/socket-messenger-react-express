@@ -1,0 +1,19 @@
+.chat {
+    width: 75%;
+
+    &__friend-info {
+        padding: 0 2rem;
+        margin: auto;
+        border-bottom: 1px solid #E5E6E8;
+    }
+
+    &__messages {
+        height: 65vh;
+        width: 95%;
+        margin: auto;
+    }
+
+    &__new-message {
+        padding: 1rem 2rem;
+    }
+}

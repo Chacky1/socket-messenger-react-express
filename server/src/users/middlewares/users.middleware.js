@@ -57,6 +57,23 @@ class UsersMiddleware {
       res.status(500).send({ message: error.message });
     }
   }
+
+  checkNewContactInBodyRequest(req, res, next) {
+    if (req.body && req.body.newContactId) {
+      next();
+    } else {
+      res.status(400).send({ message: 'newContactId is missing in body request.' });
+    }
+  }
+
+  async checkNewContactIsNotAFriend(req, res, next) {
+    const friendIds = await usersModel.listFriends(+req.params.userId);
+    if (friendIds.includes(req.body.newContactId)) {
+      res.status(409).send({ message: 'New contact is already a friend.' });
+    } else {
+      next();
+    }
+  }
 }
 
 module.exports = new UsersMiddleware();
